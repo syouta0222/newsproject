@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+
+        
+        {% block title %}Django`s Blog = Contact{% endblock %}
+        <!-- Page Header-->
+        {% block header %}
+        <header class="masthead" style="background-image: url({% static 'assets/img/contact-bg.jpg' %})">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="page-heading">
+                            <h1>Contact Me</h1>
+                            <span class="subheading">Have questions? I have answers.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        {% endblock %}
+
+        <!-- Main Content-->
+        {% block contents %}
+        <main class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <strong>連絡を取りたいですか？</strong>
+                        以下のフォームに記入してメッセージを送信してください。
+                        できるだけ早くご連絡します。</strong>
+
+                        <!-- フォームの送信が成功したときのメッセージを表示するためのコード -->
+                        <style>
+                            /* ここでカスタムスタイルを追加 */
+                            .alert-success {
+                                background-color: #4CAF50;
+                                color: white;
+                                font-size: 18px;
+                                font-weight: bold;
+                                border-radius: 10px;
+                                padding: 20px;
+                                margin-bottom: 15px;
+                                box-shadow: 0 4px 15px rgba(0, 128, 0, 0.4);
+                                position: relative;
+                                animation: slideIn 0.5s ease-out;
+                            }
+                    
+                            .alert-success i {
+                                margin-right: 10px;
+                                font-size: 22px;
+                            }
+                    
+                            /* スライドインアニメーション */
+                            @keyframes slideIn {
+                                0% {
+                                    transform: translateX(-100%);
+                                    opacity: 0;
+                                }
+                                100% {
+                                    transform: translateX(0);
+                                    opacity: 1;
+                                }
+                            }
+                    
+                            /* 重要: Bootstrapのbtn-closeをカスタマイズ */
+                            .btn-close {
+                                background-color: #ffffff;
+                                opacity: 1;
+                                position: absolute;
+                                top: 10px;
+                                right: 15px;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                    
+                        <div class="container mt-4">
+                            <!-- メッセージ表示部分 -->
+                            {% for message in messages %}
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <i class="bi bi-check-circle"></i> <!-- アイコン -->
+                                    <strong>{{ message }}</strong>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <!-- フォームを表示するためのコード-->
+                        <div class="my-5">
+                            <form method="post">
+                                {% csrf_token %}
+                                {% for field in form %}
+                                <div class="form-floating">
+                                    <div class="form-group floating-label-form-group controls">
+                                        {{ field.label_tag }}
+                                        {{ field }}
+                                        <p class="help-block text-danger"></p>
+                                        </div>
+                                </div>
+                                {% endfor %}
+
+                                <br>
+                                <!-- 送信用のボタン -->
+                                <button type="submit"
+                                class="btn btn-primary"
+                                id="sendMessageButton">送信する</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        {% endblock %}

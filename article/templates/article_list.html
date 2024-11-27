@@ -1,0 +1,41 @@
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            {% for record in object_list %}
+            <div class="col mb-5">
+                <div class="card h-100">
+                    <img src="{{ record.image1.url}}" alt="..." />
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <h5 class="fw-bolder">{{record.title}}</h5>
+                            
+                        </div>
+                    </div>
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center">
+                            <!-- "More" ボタンのデザインを変更 -->
+                            <a class="btn btn-dark btn-lg px-4 py-2 mb-3" href="{% url "article:article_detail" record.pk %}">More</a><br>
+                            
+                            <!-- カテゴリボタンのデザインを変更 -->
+                            <a type="button" class="btn btn-sm btn-outline-dark rounded-pill px-4 py-2" 
+                                onclick="location.href='{% url 'article:articles_cat' category=record.category.id %}'">
+                                {{ record.category.title }}
+                            </a>
+                        </div>
+                    </div>
+                    <a href="{% url 'article:user_list' user=record.user.id %}" class="text-decoration-none">
+                        <small>
+                            <span class="text-white font-medium text-sm px-3 py-1 rounded bg-black hover:bg-gray-700 transition duration-200 ease-in-out">
+                                {{ record.user.username }}
+                            </span>
+                        </small>
+                    </a>
+                    
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+    </div>
+</section>

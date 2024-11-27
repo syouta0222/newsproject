@@ -1,0 +1,194 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>{% block title %}{% endblock title %}</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" />
+    <!-- Bootstrap icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap) -->
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    <style>
+        /* Custom navbar styles */
+        .navbar {
+            background-color: #343a40;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .navbar-brand {
+            font-weight: bold;
+            color: #ffffff !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: #ffffff !important;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #00c6ff !important;
+            text-decoration: underline;
+        }
+
+        .navbar-nav .dropdown-menu {
+            background-color: #343a40;
+        }
+
+        .navbar-nav .dropdown-item:hover {
+            background-color: #00c6ff;
+            color: #ffffff;
+        }
+
+        /* Header styles */
+        header.bg-dark {
+            background: linear-gradient(to right, #212529, #343a40);
+            padding: 5rem 0;
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            margin-top: 1rem;
+        }
+
+        /* Link item styles */
+        .navbar-links {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        .link-item {
+            text-decoration: none;
+            font-size: 16px;
+            color: white;
+            font-weight: bold;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .link-item:hover {
+            color: #00c6ff;
+        }
+
+        .link-item::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #00c6ff;
+            bottom: -2px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .link-item:hover::after {
+            width: 100%;
+        }
+
+        /* Footer styles */
+        footer.bg-dark {
+            background-color: #212529;
+            padding: 2rem 0;
+        }
+
+        footer p {
+            color: #ffffff;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="#!">Start Bootstrap</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'article:index' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'article:contact' %}">Contact</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Category
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'article:index' %}" style="color: white;">All</a></li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li><a class="dropdown-item" href="{% url 'article:articles_cat' category=1 %}" style="color: white;">Sports</a></li>
+                            <li><a class="dropdown-item" href="{% url 'article:articles_cat' category=2 %}" style="color: white;">Entertainment</a></li>
+                            <li><a class="dropdown-item" href="{% url 'article:articles_cat' category=3 %}" style="color: white;">Chemistry</a></li>
+                            <li><a class="dropdown-item" href="{% url 'article:articles_cat' category=4 %}" style="color: white;">International</a></li>
+                            <li><a class="dropdown-item" href="{% url 'article:articles_cat' category=5 %}" style="color: white;">IT</a></li>
+                        </ul>
+                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5 text-center text-white">
+            <h1 class="display-4 fw-bolder">NEWS</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Post your favorite news</p>
+            {% if user.is_authenticated %}
+            <ul class="navbar-links">
+                <li><a href="{% url 'article:mypage' %}" class="text-white link-item">マイページ</a></li>
+                <li><a href="{% url 'article:post' %}" class="text-white link-item">投稿する</a></li>
+                <li><a href="{% url 'accounts:logout' %}" class="text-white link-item">ログアウト</a></li>
+                <li><a href="{% url 'password_reset' %}" class="text-white link-item">パスワードのリセット</a></li>
+                <li><a href="mailto:admin@example.com" class="text-white link-item">Email me</a></li>
+            </ul>
+            {% else %}
+            <ul class="navbar-links">
+                <li><a href="{% url 'accounts:signup' %}" class="text-white link-item">サインアップ</a></li>
+                <li><a href="{% url 'accounts:login' %}" class="text-white link-item">ログイン</a></li>
+                <li><a href="mailto:admin@example.com" class="text-white link-item">Email me</a></li>
+            </ul>
+            {% endif %}
+        </div>
+    </header>
+
+    <!-- Section-->
+    <main>
+        {% block contents %}{% endblock %}
+    </main>
+
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">kusu &copy; News 2023</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="{% static 'js/scripts.js' %}"></script>
+</body>
+
+</html>
