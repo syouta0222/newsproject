@@ -129,3 +129,5 @@ MEDIA_URL = '/media/'
 AUTH_USER_MODEL = 'accounts.CustomUser'
 EMAIL_TAGS = {constants.SUCCESS: 'alert alert-success'}
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
